@@ -1,0 +1,36 @@
+{
+  "rows": 2000,
+  "fields": [
+    {
+      "name": "First Name",
+      "type": "faker:name:first_name"
+    },
+    {
+      "name": "Last Name",
+      "type": "faker:name:last_name"
+    },
+    {
+      "name": "Home_phone",
+      "type": "rand:int",
+      "range": [1000000000, 9999999999]
+    },
+    {
+      "name": "Work_phone",
+      "type": "rand:int",
+      "range": [1000000000, 9999999999]
+    },
+    {
+      "name": "Mobile_phone",
+      "type": "rand:int",
+      "range": [1000000000, 9999999999]
+    },
+    {
+      "name": "email_addr",
+      "type": "faker:internet:email"
+    },
+    {
+      "name": "private_email",
+      "type": "faker:internet:email"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+<%= form_tag update_multiple_fields_path, method: :put do %>
+  <h2>File 1 &emsp;&emsp;&emsp;&emsp; File 2</h2>
+  <% @fields.each do |field| %>
+
+    <%= fields_for "fields[]", field do |f| %>
+      <% if field.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(field.errors.count, "error") %> prohibited this field from being saved:</h2>
+          <ul>
+          <% field.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.object.head1 %>
+        <%= f.text_field :head1,:readonly => true %>
+        <td><%= f.select(:head2, options_for_select($final_arr[f.object.seq]), { include_blank: true }, :style => "width:150px" ) %></td>
+      </div>
+    <% end %>
+  <% end %>
+  <div class="actions">
+    <%= submit_tag "Save" %>
+  </div>
+<% end %>
