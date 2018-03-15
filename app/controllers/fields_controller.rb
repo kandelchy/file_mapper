@@ -7,26 +7,32 @@ class FieldsController < ApplicationController
 
   def import
     Field.import_first_file(params[:file])
-    redirect_to root_url, notice: "Headers imported."
+    redirect_to map_file_fields_path, notice: "Headers imported."
   end
 
   def import2
     Field.import_second_file(params[:file2])
-    redirect_to root_url, notice: "Headers imported."
+    redirect_to map_file_fields_path, notice: "CSV file imported."
+  end
+
+  def import3
+    Field.import_map_file(params[:file3])
+    redirect_to map_file_fields_path, notice: "YAML file uploaded"
+  end
+
+  def import4
+    Field.import_fourth_file(params[:file4])
+    redirect_to map_file_fields_path, notice: "New CSV file created"
   end
 
   def save_yaml
     #save mapping data to .yml file
-    unless File.exists?('file_mapping.yml')
-      File.new('file_mapping.yml', 'w+')
-    end
+    File.new('file_mapping.yml', 'w+')
     data = YAML.load_file('file_mapping.yml') || {}
     key = Field.all
     key.each do |k|
       if k.head2.empty?
-        puts "**********************"
-        puts "Empty fields are not allowed"
-        puts "**********************"
+
       else
         data[k.head1] = k.head2
       end
