@@ -8,13 +8,8 @@
     <%= submit_tag "Select YAML file" %>
   <% end %>
     <br>
-    <br>
     <%= form_tag import4_fields_path, multipart: true do %>
     <%= file_field_tag :file4 %>
     <%= submit_tag "Import CSV" %>
   <% end %>
 </div>
-
-<br>
-<br>
-<%= link_to 'Continue', fields_path %>

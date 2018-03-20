@@ -17,12 +17,12 @@ class FieldsController < ApplicationController
 
   def import3
     Field.import_map_file(params[:file3])
-    redirect_to map_file_fields_path, notice: "YAML file uploaded"
+    # redirect_to map_file_fields_path, notice: "YAML file uploaded"
   end
 
   def import4
     Field.import_fourth_file(params[:file4])
-    redirect_to map_file_fields_path, notice: "New CSV file created"
+    redirect_to fields_path, notice: "New CSV file created"
   end
 
   def save_yaml
@@ -42,34 +42,31 @@ class FieldsController < ApplicationController
     end
   end
 
+
   def update_multiple
-    # Add validation before update
-
     data =  params[:fields].values
-    # if data.detect{ |e| data.count(e) > 1 }
-    # data.each do |k,v|
-      # print k, "   ", v
-    # if data.map { |k,v| v }.uniq
-      # puts "**********************"
-      # puts data.detect{ |e| data.count(e) > 1 }
-      # puts  data.uniq {|e| e[:head2] }
-      # puts "There is a duplicate value"
-    # end
-    # puts "**********************"
-    # data.each do |k,v|
-    #   if v.nil?
-    #     puts "**********************"
-    #     puts "Empty fields are not allowed"
-    #     puts "**********************"
-    #   end
-    # end
-
+    error_message=''
+    # Check if a field was left empty
+    data.each do |k|
+      if k['head2'].blank?
+        error_message= "All fields should be mapped"
+      end
+    end
+    #Check if one field was selected more than once
+    data =  params[:fields].values
+    if data.detect{ |e| data.count(e) > 1 }
+      data.each do |k,v|
+        if data.map { |k,v| v }.uniq
+          error_message='Duplicate values detected'
+        end
+      end
+    end
     @fields = Field.update(params[:fields].keys, params[:fields].values)
-    @fields.reject! { |p| p.errors.empty? }
-    if @fields.empty?
+    if  error_message.blank? #@fields.empty? &&
       save_yaml
-      redirect_to fields_url
+      redirect_to fields_url, notice: "File saved successfully"
     else
+      flash[:notice] = error_message
       render "edit_multiple"
     end
   end

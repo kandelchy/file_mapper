@@ -8,12 +8,12 @@ class Field < ApplicationRecord
     CSV.open("CSV_final.csv", "wb") do |csv|
       csv << @new_fields
     end
-    CSV.foreach(file4.path, headers: true) do |row|
-      temp_arr=[]
-      for i in 0..@old_fields.length-1
-        temp_arr.push row[@old_fields[i]]
-      end
-      CSV.open("CSV_final.csv", "a+") do |csv|
+    CSV.open("CSV_final.csv", "a+") do |csv|
+      CSV.foreach(file4.path, headers: true) do |row|
+        temp_arr=[]
+        for i in 0..@old_fields.length-1
+          temp_arr.push row[@old_fields[i]]
+        end
         csv << temp_arr
       end
     end
@@ -23,15 +23,11 @@ class Field < ApplicationRecord
   def self.import_map_file(file3)
     @new_fields=[]
     @old_fields=[]
-
     data = YAML.load_file(file3.path)
     data.each do |k, v|
       @new_fields.push k
       @old_fields.push v
     end
-    puts "******************"
-    print @new_fields
-    puts "******************"
   end
 
 
@@ -47,7 +43,6 @@ class Field < ApplicationRecord
       serial += 1
     end
   end
-
 
   def self.import_second_file(file2)
     reg_exp_arr = Array[]
@@ -88,6 +83,7 @@ class Field < ApplicationRecord
       end
       k += 1
     end
+
     # Rplace numbrs with corresponding headers
     for i in 0..t_rows-1
       for j in 1..$final_arr[i].length-1
@@ -96,8 +92,6 @@ class Field < ApplicationRecord
       #Delete rgular exp from 1st column
       $final_arr[i].delete_at(0)
     end
-
     # $final_arr.each {|a| p a}
-
   end
 end
