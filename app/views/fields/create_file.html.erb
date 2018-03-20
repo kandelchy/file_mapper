@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<div>
+  <h3>Import CSV File</h3>
+  <br>
+  <%= form_tag import3_fields_path , multipart: true do %>
+    <label for="file">YAML to Upload</label><%= file_field_tag :file3 %>
+    <%= submit_tag "Select YAML file" %>
+  <% end %>
+    <br>
+    <%= form_tag import4_fields_path, multipart: true do %>
+    <%= file_field_tag :file4 %>
+    <%= submit_tag "Import CSV" %>
+  <% end %>
+</div>

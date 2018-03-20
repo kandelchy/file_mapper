@@ -1,19 +1,10 @@
-<p id="notice"><%= notice %></p>
+
+
 
 <div>
-  <h3>Import CSV Files</h3>
+  <h3>File Mapper</h3>
   <br>
-  <%= form_tag import_fields_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import 1st CSV" %>
-  <% end %>
+    <%= link_to 'Map new file', map_file_fields_path %>
   <br>
-  <%= form_tag import2_fields_path, multipart: true do %>
-    <%= file_field_tag :file2 %>
-    <%= submit_tag "Import 2nd CSV" %>
-  <% end %>
+    <%= link_to 'Create file from map', create_file_fields_path %>
 </div>
-
-<br>
-<br>
-<%= link_to 'Continue', edit_multiple_fields_path %>

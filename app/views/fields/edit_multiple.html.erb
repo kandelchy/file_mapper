@@ -1,3 +1,5 @@
+<p id="notice"><%= notice %></p>
+
 <%= form_tag update_multiple_fields_path, method: :put do %>
   <h2>File 1 &emsp;&emsp;&emsp;&emsp; File 2</h2>
   <% @fields.each do |field| %>
@@ -15,9 +17,8 @@
       <% end %>
 
       <div class="field">
-        <%= f.object.head1 %>
-        <%= f.text_field :head1,:readonly => true %>
-        <td><%= f.select(:head2, options_for_select($final_arr[f.object.seq]), { include_blank: true }, :style => "width:150px" ) %></td>
+        <td><%= f.object.head1 %>&emsp;&emsp;&emsp;&emsp;</td>
+        <td>&emsp;&emsp;&emsp;&emsp;<%= f.select(:head2, options_for_select($final_arr[f.object.seq]), { include_blank: true }, :style => "width:150px" ) %></td>
       </div>
     <% end %>
   <% end %>
